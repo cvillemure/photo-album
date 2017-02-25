@@ -1,0 +1,51 @@
+$cardDescriptionHeight : 35px;
+$cardMenuWidth : 24px + 15px;
+
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
+@mixin ellipsisCalc ($paddingRight){
+    display: inline-block;
+    @include calc(max-width, '100% - #{$paddingRight}');
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card.small {
+    .card-image {
+        @include calc(height, '100% - #{$cardDescriptionHeight}');
+        max-height: none;
+    
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+    .card-content {
+        height: $cardDescriptionHeight;
+        max-height: none;
+        padding: 5px 5px 0 15px;
+
+        .image-description {
+            @include ellipsisCalc($cardMenuWidth);
+            padding-top: 3px;
+        }
+    }
+}
+
+.app-main-menu {
+    .search-full {
+        width: 200px;
+    }
+}

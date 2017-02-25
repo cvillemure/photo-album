@@ -1,0 +1,14 @@
+{
+  "name": "photo-album",
+  "version": "0.1.0",
+  "description": "Photo Album Web App",
+  "main": "index.js",
+  "repository": "https://github.com/cvillemure/photo-album",
+  "author": "Charles Villemure <cvillemure@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "node-sass": "^4.5.0"
+  }
+}
