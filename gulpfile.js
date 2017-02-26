@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var babel = require('gulp-babel');
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
+var del = require('del');
 var dotPreparse = require('gulp-dot-preparse');
 var header = require('gulp-header');
 var sass = require('gulp-sass');
@@ -22,14 +23,14 @@ const templatesLocation = path.join(clientSourceFolder, 'templates', '**', '*.js
 gulp.task('sass', function () {
     const mainSassFile = path.join(clientSourceFolder, 'scss', 'app.scss');
     const cssDestinationFolder = path.join(clientDistFolder, 'css');
-    gulp.src(mainSassFile)
+    return gulp.src(mainSassFile)
         .pipe(sass())
         .pipe(cleanCSS({ compatibility: 'ie9' }))
         .pipe(gulp.dest(cssDestinationFolder));
 });
 
 gulp.task('babel', function () {
-    gulp.src(jsToTranspile)
+    return gulp.src(jsToTranspile)
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -37,7 +38,7 @@ gulp.task('babel', function () {
 });
 
 gulp.task('templates', function () {
-    gulp.src(templatesLocation)
+    return gulp.src(templatesLocation)
         .pipe(dotPreparse({
             root: path.join(clientSourceFolder, 'templates'),
             global: 'render',
@@ -62,9 +63,11 @@ gulp.task('copy', function () {
     // To delete after development
     const imagesDist = path.join(clientDistFolder, 'images');
     gulp.src(imagesSrc).pipe(gulp.dest(imagesDist));
+
+    return;
 });
 
-gulp.task('watch', function () {
+gulp.task('watch:client', function () {
     gulp.watch(mainHtmlSrc, ['copy']);
     gulp.watch(fontsSrc, ['copy']);
     gulp.watch(imagesSrc, ['copy']);
@@ -74,8 +77,16 @@ gulp.task('watch', function () {
     gulp.watch(templatesLocation, ['templates']);
 });
 
-gulp.task('build', ['copy', 'sass', 'babel', 'templates']);
+gulp.task('clean', function () {
+    return del('dist/**/*', { force: true });
+});
+
+gulp.task('build:client', ['copy', 'sass', 'babel', 'templates']);
+
+gulp.task('build', ['clean'], function () {
+    gulp.start('build:client');
+});
 
 gulp.task('build:watch', ['build'], function () {
-    gulp.start('watch');
+    gulp.start('watch:client');
 });
