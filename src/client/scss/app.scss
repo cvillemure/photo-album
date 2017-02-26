@@ -7,6 +7,12 @@
     @include clearfix();
 }
 
+#main-content {
+    .row {
+        margin-bottom: 0;
+    }
+}
+
 .card.small {
     .card-image {
         @include calc(height, '100% - #{$cardDescriptionHeight}', '90%');
@@ -57,8 +63,12 @@
 }
 
 .app-nav-bar {
-    .app-logo {
-        margin-left: 5px;
+    .brand-logo {
+        padding-left: 5px;
+        @media screen and (max-width: $medium-screen) {
+            padding-left: 0;
+            -webkit-transform: translateX(-50%);
+        }
     }
     .header-menu,
     {
