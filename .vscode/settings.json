@@ -1,4 +1,5 @@
 {
     "scss.validate": true,
-    "vsicons.presets.angular": false
+    "vsicons.presets.angular": false,
+    "editor.formatOnSave": true
 }

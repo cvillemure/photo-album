@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Materialize Photo Album</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link type="text/css" rel="stylesheet" href="css/app.css" media="screen,projection">
+
+    <!-- jQuery is required by Materialize to function -->
+    <script type="text/javascript" src="js/ext/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/ext/materialize.min.js"></script>
+
+    <script type="text/javascript" src="js/imageList.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper app-nav-bar">
+            <div class="header-menu left hide-on-med-and-up">
+                <div class="dropdown-button" data-activates="mainMenuDropdownLeft">
+                    <i class="zmdi zmdi-menu"></i>
+                    <ul id="mainMenuDropdownLeft" class="dropdown-content">
+                        <li><a href="#!">Left Menu</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="app-logo">
+                <a href="#" class="brand-logo">Photo Album</a>
+            </div>
+            <ul class="header-menu right">
+                <li>
+                    <i class="zmdi zmdi-search"></i>
+                </li>
+                <li class="hide-on-small-only">
+                    <div class="dropdown-button" data-activates="mainMenuDropdownRight">
+                        <i class="zmdi zmdi-menu"></i>
+                        <ul id="mainMenuDropdownRight" class="dropdown-content">
+                            <li><a href="#!">Right Menu</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="main-content"></div>
+</body>
+
+</html>

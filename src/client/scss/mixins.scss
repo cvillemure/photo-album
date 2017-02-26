@@ -1,0 +1,27 @@
+@mixin handPointer() {
+    cursor: pointer;
+    cursor: hand;
+}
+
+@mixin calc($property, $expression, $default) {
+    #{$property}: $default;
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+@mixin ellipsisCalc ($paddingRight) {
+    display: inline-block;
+    @include calc(max-width, '100% - #{$paddingRight}', '90%');
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
