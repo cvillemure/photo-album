@@ -1,8 +1,12 @@
 var path = require('path');
+
 var gulp = require('gulp');
-var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var cleanCSS = require('gulp-clean-css');
+var concat = require('gulp-concat');
+var dotPreparse = require('gulp-dot-preparse');
+var header = require('gulp-header');
+var sass = require('gulp-sass');
 
 const clientSourceFolder = path.join('src', 'client');
 const clientDistFolder = path.join('dist', 'client');
@@ -13,6 +17,7 @@ const fontsSrc = path.join(clientSourceFolder, 'fonts', '**', '*');
 const imagesSrc = path.join(clientSourceFolder, 'images', '**', '*');
 const extJsSrc = path.join(clientSourceFolder, 'js', 'ext', '**', '*');
 const jsToTranspile = path.join(clientSourceFolder, 'js', '*.js');
+const templatesLocation = path.join(clientSourceFolder, 'templates', '**', '*.jst');
 
 gulp.task('sass', function () {
     const mainSassFile = path.join(clientSourceFolder, 'scss', 'app.scss');
@@ -28,6 +33,20 @@ gulp.task('babel', function () {
         .pipe(babel({
             presets: ['es2015']
         }))
+        .pipe(gulp.dest(jsDestinationFolder));
+});
+
+gulp.task('templates', function () {
+    gulp.src(templatesLocation)
+        .pipe(dotPreparse({
+            root: path.join(clientSourceFolder, 'templates'),
+            global: 'render',
+            templateSettings: {
+                varname: 'model'
+            }
+        }))
+        .pipe(concat('templates.js'))
+        .pipe(header('window.render={};'))
         .pipe(gulp.dest(jsDestinationFolder));
 });
 
@@ -52,9 +71,10 @@ gulp.task('watch', function () {
     gulp.watch(extJsSrc, ['copy']);
     gulp.watch(path.join(clientSourceFolder, 'scss', '**', '*'), ['sass']);
     gulp.watch(jsToTranspile, ['babel']);
+    gulp.watch(templatesLocation, ['templates']);
 });
 
-gulp.task('build', ['copy', 'sass', 'babel']);
+gulp.task('build', ['copy', 'sass', 'babel', 'templates']);
 
 gulp.task('build:watch', ['build'], function () {
     gulp.start('watch');

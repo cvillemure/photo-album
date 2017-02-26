@@ -1,0 +1,41 @@
+{{##def.fullDescription:imageModel:
+    {{=imageModel.date}} : {{!imageModel.text}}
+#}}
+{{##def.fullDescriptionHtml:imageModel:
+    <span class="date">{{=imageModel.date}} :</span>{{!imageModel.text}}
+#}}
+
+{{##def.row_image_card:imageModel:
+    <div class="col s12 m6 l3">
+        <div class="card small">
+            <div class="card-image">
+                <img data-image-id="{{=imageModel.id}}" src="{{=imageModel.src}}" alt="{{#def.fullDescription:imageModel}}" title="{{#def.fullDescription:imageModel}}">
+            </div>
+            <div class="card-content">
+                <span class="grey-text text-darken-4 image-description" title="{{!imageModel.text}}">{{#def.fullDescriptionHtml:imageModel}}</span>
+                <div class="image-menu">
+                    <i class="zmdi zmdi-more-vert zmdi-hc-lg right dropdown-button" data-activates="imageMenuDropdown{{=imageModel.id}}"></i>
+                    <ul id="imageMenuDropdown{{=imageModel.id}}" class="dropdown-content">
+                        <li title="{{!window.dictionary.rotate_left_title}}"><a class="center"><i class="zmdi zmdi-rotate-left"></i>{{!window.dictionary.rotate_left}}</a></li>
+                        <li title="{{!window.dictionary.rotate_right_title}}"><a class="center"><i class="zmdi zmdi-rotate-right"></i>{{!window.dictionary.rotate_right}}</a></li>
+                        <li title="{{!window.dictionary.rotate_180_title}}"><a class="center"><i class="zmdi zmdi-refresh"></i>{{!window.dictionary.rotate_180}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+#}}
+
+{{##def.row:rowModel:
+    <div class="row">
+        {{~ rowModel :imageModel }}
+            {{#def.row_image_card:imageModel}}
+        {{~}}
+    </div>
+#}}
+
+<div id="main-content">
+    {{~ model.rows :row_model }}
+        {{#def.row:row_model}}
+    {{~}}
+</div>

@@ -14,12 +14,6 @@
             "isBuildCommand": true,
             "showOutput": "always",
             "isBackground": true
-        },
-        {
-            "taskName": "copy",
-            "isBuildCommand": false,
-            "showOutput": "always",
-            "isBackground": true
         }
     ]
 }
